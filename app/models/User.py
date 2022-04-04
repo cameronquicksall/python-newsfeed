@@ -34,9 +34,13 @@ class User(Base):
     # Above, we add a new validate_email() method to the class that a @validates('email') decorator wraps. 
     # The validate_email() method returns what the value of the email column should be, and the @validates() decorator internally handles the rest. 
     # This decorator is similar to the @bp.routes() decorator that we used previously to handle the route functions.
-
-    #The validate_email() method uses the assert keyword to check if an email address contains an at-sign character (@).
+    # The validate_email() method uses the assert keyword to check if an email address contains an at-sign character (@).
     # The assert keyword automatically throws an error if the condition is false, thus preventing the return statement from happening.
 
+    def verify_password(self, password):
+        return bcrypt.checkpw(
+            password.encode('utf-8'),
+            self.password.encode('utf-8')
+        )
 
 

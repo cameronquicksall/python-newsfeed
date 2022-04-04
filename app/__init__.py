@@ -1,6 +1,6 @@
 # here we import `home` directly from the newly created `routes` package
 # .routes indicates that `routes` belongs to the parent `app` package
-from .routes import home, dashboard
+from app.routes import home, dashboard, api
 # Here we use a from...import statement to import the Flask() function
 from flask import Flask
 from app.db import init_db
@@ -11,6 +11,7 @@ from app.utils import filters
 def create_app(test_config=None):
     # set up app config
     app = Flask(__name__, static_url_path='/')
+    app.register_blueprint(api)
     app.jinja_env.filters['format_url'] = filters.format_url
     app.jinja_env.filters['format_date'] = filters.format_date
     app.jinja_env.filters['format_plural'] = filters.format_plural
